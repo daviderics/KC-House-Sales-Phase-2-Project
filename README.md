@@ -45,11 +45,12 @@ The model was built iteratively by first fitting features that were most strongl
 The model starts with a reference price, then
 
 The table below describes the parameters in the model and the reference price.
-| House Feature                 | Parameter Value and Meaning                            | Reference Price Assumes |
-|:------------------------------|:-------------------------------------------------------|:------------------------|
-|Square footage of living space | Increasing living space by 10% increases price by 4.3% | 1940 square feet        |
-|Grade (ranges from 1 to 13)    | Increasing grade by 1 increases price by 12.2%         | 7                       |
-
+| House Feature                 | Parameter Value and Meaning                                   | Reference Price Assumes |
+|:------------------------------|:--------------------------------------------------------------|:------------------------|
+|Square footage of living space | Increasing living space by 10% increases price by 4.3%        | 1940 square feet        |
+|Grade (ranges from 1 to 13)    | Increasing grade by 1 increases price by 12.2%                | 7                       |
+|Whether house is on waterfront | House on waterfront will cost 61.5% more than one that is not | Not on a waterfront     |
+|Condition (5 levels)           | House with a Very Good condition is worth 13.4% more than Average<br>House with a Good condition is worth 6.9% more than Average<br>House with a Fair condition is worth 4.7% less than Average<br>House with a Poor condition is worth 5.8% less than Average | Average              |
 
 
 The model can be thought of like this:
