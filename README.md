@@ -2,10 +2,12 @@
 Phase 2 Project for the Flatiron School Data Science Bootcamp
 
 ## Contents of Repository
-|student.ipynb | Jupyter notebook used to perform the analysis. |
-|king_county_house_sales.pdf: PDF of the non-technical presentation for stakeholders. |
-|visuals | Folder containing figures used in the presentation and README. |
-|data | The data used in the project and descriptions of the data. |
+|File/Folder                 | Description                                                    |
+|:---------------------------|:---------------------------------------------------------------|
+|student.ipynb               | Jupyter notebook used to perform the analysis.                 |
+|king_county_house_sales.pdf | PDF of the non-technical presentation for stakeholders.        |
+|visuals                     | Folder containing figures used in the presentation and README. |
+|data                        | The data used in the project and descriptions of the data.     |
 
 ## Overview
 In this project, I use data about house sales in King County, WA to determine what sort of renovations house sellers should make to raise the values of their homes. I accomplish this by creating a linear regression model that can be used to predict price based on the features and location of a house in King County.
