@@ -40,9 +40,14 @@ The stakeholder is a real estate agency in King County, WA. They want to be able
 ## Modeling
 I wanted to create a model that could produce a reasonable estimate for the price of a house given certain features of that house. I accomplished this by creating a linear regression model.
 
+Prior to creating a linear regression model, I first took the natural log of most of the continuous numerical data (such as price, square footage of living space, etc.) because the distribution of these were highly skewed to lower values. After taking a logarithm, their distributions were much more symmetric, which is more appropriate for creating the linear regression model. I also subtracted the median from most of the data. This is helpful because it will make the constant in the model more realistic and easier to interpret.
+
 The model was built iteratively by first fitting features that were most strongly correlated with price. Other features were added to the model one at a time to see whether they improved the fit. Any features that were not included either did not improve the fit in a meaningful way, or they were strongly correlated to a feature that was already being included. For example, I used the square footage of living space in the model and did not include the square footage of above ground space or the number of bedrooms/bathrooms because I did not want multiple independent variables that essentially just represent how big the house is. Including redundant variables like this could lead to multicollinearity in the input data, leading to an unstable solution from the linear regression.
 
-The model starts with a reference price, then
+The success of the model was judged based on the adjusted R-squared value, the p-value of the F-statistic, and whether the parameters in the model were significant using a 0.05 significance level. Parameters that were not significant were not kept in the model.
+
+## Regression Results
+The easiest way to think about the model is to start with a reference house with certain conditions (listed in the third column or the table below). This house costs \$568,539 according to the model. Then, each parameter in the model tells you what to multiply this price by if something changes from the reference house (it gets more living space, improves its grade or condition, etc.).
 
 The table below describes the parameters in the model and the reference price.
 | House Feature                 | Parameter Value and Meaning                                   | Reference Price Assumes |
@@ -51,24 +56,26 @@ The table below describes the parameters in the model and the reference price.
 |Grade (ranges from 1 to 13)    | Increasing grade by 1 increases price by 12.2%                | 7                       |
 |Whether house is on waterfront | House on waterfront will cost 61.5% more than one that is not | Not on a waterfront     |
 |Condition (5 levels)           | House with a Very Good condition is worth 13.4% more than Average<br>House with a Good condition is worth 6.9% more than Average<br>House with a Fair condition is worth 4.7% less than Average<br>House with a Poor condition is worth 5.8% less than Average | Average              |
+|ZIP Code (74 ZIP codes)        | Each parameter compares price to houses in ZIP code 98042     | 98042                   |
+|Whether house was renovated    | Renovating a house makes the price 9.2% larger                | Not renovated           |
 
+The figure below summarizes the results for parameters that a seller might have the ability to change by performing renovations:
+![model_results](visuals/model_results.png)
 
-The model can be thought of like this:
-1. Start with a house with specific features (listed below). This house has a price of \$568,539.
-2. Each parameter in the model corresponds to a factor that multiplies the reference price
+The biggest change in price comes from increasing the grade of a house. However, this might be difficult to accomplish because the grade has to do with both the design and construction quality of the house. It seems easier to change the condition, which tends to have a smaller effect on the price.
 
-The final model predicts price using the following features:
-1. Square footage of living space. Reference house has 1940 square feet.<br>
-2. Grade (Ranges from 1 to 13). Reference house has grade of 7<br>
-3. Whether or not the house is on a waterfront. Reference house is not on a waterfront.<br>
-4. Condition (5 levels). Reference house has Average condition.<br>
-5. ZIP code. Reference house is located in 98042 (the ZIP code with the most sales).<br>
-6. Whether the house was renovated. Reference house was not renovated.<br>
+This final model had an adjusted R-squared value of 0.685. This means that 68.5% of the variance in ln(price) was explained by the model.
 
+The p-value of the F-statistic was effectively 0, showing that the model does capture the correlation between price and the features used in the fit.
 
+Almost all of the parameters in the fit had p-values below 0.05. Below I describe the ones that did not:
+1. The parameter comparing the price of Poor condition houses to Average condition houses had a p-value of 0.144. The other parameters related to the condition of the house were all statistically significant.
+2. There were 73 parameters that compared houses in the 98042 ZIP code to other ZIP codes. Using a significance level of 0.05/73, 59 of these parameters were significant. The other 14 were not, but this just means that the houses in these ZIP codes had similar prices to those in 98042, all else being equal.
 
+I tested the ability of the model to predict prices by creating a model using just 90% of the data, then using that model to predict prices for the other 10%. The results are shown in the graph below.
+![jackknife_plot](visuals/jackknife_plot.png)
 
-## Regression Results
+Just over 75% of the predicted prices were within 25% of the actual price.
 
-
-## Conclusion
+## Recommendations
+The goal of this project was to be able to recommend to sellers how they should renovate their homes prior to selling. 
