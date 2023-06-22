@@ -29,7 +29,7 @@ For each house sale, there is information about the following:
 
 Some of the addresses and ZIP codes are incorrect, leading to many locations being listed outside of King County. These records as well as duplicates were removed. The final dataset contains 29,185 records.
 
-A histogram of the prices is shown below.
+A histogram of the prices is shown below.<br>
 ![price_histograms](visuals/price_histograms.png)
 
 The histogram is skewed towards lower prices with only a few very high price homes.
@@ -59,7 +59,7 @@ The table below describes the parameters in the model and the reference price.
 |ZIP Code (74 ZIP codes)        | Each parameter compares price to houses in ZIP code 98042     | 98042                   |
 |Whether house was renovated    | Renovating a house makes the price 9.2% larger                | Not renovated           |
 
-The figure below summarizes the results for parameters that a seller might have the ability to change by performing renovations:
+The figure below summarizes the results for parameters that a seller might have the ability to change by performing renovations:<br>
 ![model_results](visuals/model_results.png)
 
 The biggest change in price comes from increasing the grade of a house. However, this might be difficult to accomplish because the grade has to do with both the design and construction quality of the house. It seems easier to change the condition, which tends to have a smaller effect on the price.
@@ -72,10 +72,22 @@ Almost all of the parameters in the fit had p-values below 0.05. Below I describ
 1. The parameter comparing the price of Poor condition houses to Average condition houses had a p-value of 0.144. The other parameters related to the condition of the house were all statistically significant.
 2. There were 73 parameters that compared houses in the 98042 ZIP code to other ZIP codes. Using a significance level of 0.05/73, 59 of these parameters were significant. The other 14 were not, but this just means that the houses in these ZIP codes had similar prices to those in 98042, all else being equal.
 
-I tested the ability of the model to predict prices by creating a model using just 90% of the data, then using that model to predict prices for the other 10%. The results are shown in the graph below.
+I tested the ability of the model to predict prices by creating a model using just 90% of the data, then using that model to predict prices for the other 10%. The results are shown in the graph below.<br>
 ![jackknife_plot](visuals/jackknife_plot.png)
 
-Just over 75% of the predicted prices were within 25% of the actual price.
+Just over 75% of the predicted prices were within 25% of the actual price. There are still some houses for which the predicted prices are much lower or much higher than the actual price. This shows that there are features of these houses that are not captured by the model (and likely aren't present in the data used in this project).
 
 ## Recommendations
-The goal of this project was to be able to recommend to sellers how they should renovate their homes prior to selling. 
+The goal of this project was to be able to recommend to sellers how they should renovate their homes prior to selling to help them make a greater profit. Whether or not they should perform specific renovations depends on how much those renovations are expected to raise the price and how much they will cost.
+
+**Example**
+A house is currently valued at $750,000. The seller could improve the house to increase the price. The new price given by the model is given in the table below for different types of improvements:<br>
+
+| Improvement Made                          | New Price   |
+|:------------------------------------------|:------------|
+|Made renovations...                        | \$819,145   |
+|and increased grade by 1                   | \$919,303   |
+|and improved condition                     | \$875,381   |
+|and increased grade AND improved condition | \$982,415   |
+
+If the renovations are not expected to improve the grade or condition, then they must cost less than \$69,145 to be profitable. That number is higher if it is expected to improve the grade and/or condition.
