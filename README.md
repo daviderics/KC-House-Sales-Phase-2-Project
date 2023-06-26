@@ -5,6 +5,7 @@ Phase 2 Project for the Flatiron School Data Science Bootcamp
 |File/Folder                 | Description                                                    |
 |:---------------------------|:---------------------------------------------------------------|
 |student.ipynb               | Jupyter notebook used to perform the analysis.                 |
+|student.pdf                 | PDF of Jupyter notebook                                        |
 |king_county_house_sales.pdf | PDF of the non-technical presentation for stakeholders.        |
 |visuals                     | Folder containing figures used in the presentation and README. |
 |data                        | The data used in the project and descriptions of the data.     |
